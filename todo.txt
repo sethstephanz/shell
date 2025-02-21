@@ -1,0 +1,52 @@
+1. Basic command execution
+- ls, gcc, cat, etc.
+- handle command args
+- return status codes
+
+2. build-in commands
+- exit
+- cd
+- pwd
+- echo
+- set/unset
+
+3. Redirection
+- input and output redirection (<, >, >>)
+- error redirection (2>)
+- combine standard output and error (&>)
+
+4. pipelining
+5. Background processes
+6. job control
+7. handling wildcards
+- globbing
+8. Signals
+9. input handling
+- maintain history of commands executed by user 
+- auto-completion
+- whitespace handling
+10. scripting and execution
+- shell scripts
+- command grouping
+- conditional execution (e.g., command1 && command2)
+11. Env variables
+12. error handling
+13. Customization and user config
+14. signal and process management
+15. error recovery
+
+bonus:
+- tab completion
+- aliases
+- timezone and locale support
+- networking commands
+
+General plan of action
+1. Display the prompt: The shell shows a prompt ($ or another symbol) indicating it’s ready for user input.
+2. Read input: The shell reads the command the user types (often with stdin).
+3. Parse the command: The shell splits the input into tokens (command and arguments) and checks for special characters like piping or redirection.
+4. Execute built-in commands: If the command is internal (e.g., cd, exit, echo), the shell directly processes it.
+5. Create a new process: For external commands, the shell uses fork() to create a child process.
+6. Execute the command: The child process uses exec() to replace its image with the external command to run it.
+7. Wait for completion: The shell waits for the child process to finish, using wait() or waitpid().
+8. Return to prompt: After the process completes (or in case of background execution), the shell returns to step 1, displaying the prompt again.
