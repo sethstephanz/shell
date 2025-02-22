@@ -17,10 +17,6 @@ int parse_input(char *input) {
     char buf[INPUT_MAX];
     char *tokens[MAX_TOKENS] = {0}; // array of pointers, each of which will point to token
 
-    // prompt user for a command, send raw data to buf
-    printf("> ");
-    fgets(buf, sizeof(buf), stdin);
-
     int i = 0;
     char *token = strtok(buf, " ");
     while (token != NULL && i < MAX_TOKENS - 1) {
