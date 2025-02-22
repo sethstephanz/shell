@@ -17,7 +17,10 @@ void process_input(char *input) {
     if (strcmp(input, "exit") == 0) {
         return;
     } else {
-        parse_input(input);
+        if (parse_input(input) < 0) {
+            printf("Parsing error: Input too long.\n");
+            return;
+        }
     }
 }
 

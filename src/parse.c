@@ -5,22 +5,33 @@
 #include <stdlib.h>
 #include <string.h>
 
-void trim_whitespace(char *str) {
+#define INPUT_MAX 256
+#define MAX_TOKENS 10
+
+int parse_input(char *input) {
+
+    if (sizeof(input) >= INPUT_MAX) {
+        return -1;
+    }
+
+    char buf[INPUT_MAX];
+    char *tokens[MAX_TOKENS] = {0}; // array of pointers, each of which will point to token
+
+    // prompt user for a command, send raw data to buf
+    printf("> ");
+    fgets(buf, sizeof(buf), stdin);
+
     int i = 0;
-    int j = strlen(str) - 1;
-
-    while (isspace((unsigned char)str[i])) {
-        i++;
+    char *token = strtok(buf, " ");
+    while (token != NULL && i < MAX_TOKENS - 1) {
+        tokens[i++] = token;       // store token in array
+        token = strtok(NULL, " "); // get next token
     }
-    while (j >= 0 && isspace((unsigned char)str[j])) {
-        j--;
+    tokens[i] = NULL;
+
+    for (int j = 0; tokens[j] != NULL; j++) {
+        printf("Token %d: %s\n", j, tokens[j]);
     }
 
-    memmove(str, str + i, j - i + 1);
-    str[j - i + 1] = '\0';
-}
-
-void parse_input(char *input) {
-    trim_whitespace(input);
-    printf("Parsing input: \n");
+    return 0;
 }
